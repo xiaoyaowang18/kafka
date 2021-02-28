@@ -3,8 +3,6 @@ package com.whc.consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
