@@ -28,13 +28,13 @@ public class LowerConsumer {
         int port = 9092;
 
         //主题
-        String topic = "second";
+        String topic = "first";
 
         //分区
         int partition = 0;
 
         //offset
-        long offset = 0;
+        long offset = 2;
 
         LowerConsumer lowerConsumer = new LowerConsumer();
         lowerConsumer.getData(brokers,port,topic,partition,offset);
@@ -46,7 +46,7 @@ public class LowerConsumer {
         for (String broker : brokers) {
             //创建获取分区leader的消费者对象
             SimpleConsumer getleader = new SimpleConsumer(broker, port, 1000, 1024 * 4, "getleader");
-            //创建一个主题元数据信息请求
+            //创建一个主题元数据信息请求(可以有)
             TopicMetadataRequest topicMetadataRequest = new TopicMetadataRequest(Collections.singletonList(topic));
             //获取主题元数据返回值
             TopicMetadataResponse metadataResponse = getleader.send(topicMetadataRequest);
@@ -80,7 +80,7 @@ public class LowerConsumer {
         SimpleConsumer getData = new SimpleConsumer(leader.host(), port, 1000, 1024 * 4, "getData");
 
         //创建获取数据的对象
-        FetchRequest fetchRequest = new FetchRequestBuilder().addFetch(topic, partition, offset, 100).build();
+        FetchRequest fetchRequest = new FetchRequestBuilder().addFetch(topic, partition, offset, 1000).build();
         //获取数据返回值
         FetchResponse fetchResponse = getData.fetch(fetchRequest);
 
@@ -91,6 +91,7 @@ public class LowerConsumer {
             long offset1 = messageAndOffset.offset();
             ByteBuffer payload = messageAndOffset.message().payload();
             //在这里可以保存offset到自己指定的位置
+            System.out.println("此时的offset:" + offset1);
             byte[] bytes = new byte[payload.limit()];
             payload.get(bytes);
             System.out.println(offset1 + "--" + new String(bytes));
