@@ -30,11 +30,11 @@ public class CustomConsumer {
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
         //消费者订阅的topic,可以同时订阅多个
-        kafkaConsumer.subscribe(Arrays.asList("whc", "second", "third"));
+        kafkaConsumer.subscribe(Arrays.asList( "second"));
 
         while (true) {
             //读取数据，读取超时时间100ms
-            ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofSeconds(100));
+            ConsumerRecords<String, String> records = kafkaConsumer.poll(100L);
 
             for (ConsumerRecord<String, String> record : records) {
                 System.out.println(record.topic() + "--" + record.partition() + "--" + record.value());
