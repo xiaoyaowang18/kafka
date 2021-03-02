@@ -2,6 +2,8 @@ package com.whc.producer;
 
 import org.apache.kafka.clients.producer.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class CustomerProducer {
@@ -23,7 +25,12 @@ public class CustomerProducer {
         //KV序列化类
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("partitioner.class","com.whc.producer.CustomPartitioner");
+        //props.put("partitioner.class","com.whc.producer.CustomPartitioner");
+        //构建拦截链
+        List<String> interceptors = new ArrayList<String>();
+        interceptors.add("com.atguigu.kafka.interceptor.TimeInterceptor"); 	interceptors.add("com.atguigu.kafka.interceptor.CounterInterceptor");
+        props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);
+
 
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 10; i++)
