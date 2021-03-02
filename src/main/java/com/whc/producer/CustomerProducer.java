@@ -28,7 +28,8 @@ public class CustomerProducer {
         //props.put("partitioner.class","com.whc.producer.CustomPartitioner");
         //构建拦截链
         List<String> interceptors = new ArrayList<String>();
-        interceptors.add("com.atguigu.kafka.interceptor.TimeInterceptor"); 	interceptors.add("com.atguigu.kafka.interceptor.CounterInterceptor");
+        interceptors.add("com.atguigu.kafka.interceptor.TimeInterceptor");
+        interceptors.add("com.atguigu.kafka.interceptor.CounterInterceptor");
         props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);
 
 
