@@ -21,6 +21,12 @@
             <artifactId>kafka_2.12</artifactId>
             <version>0.11.0.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>0.11.0.2</version>
+        </dependency>
     </dependencies>
 
 </project>
